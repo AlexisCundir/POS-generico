@@ -52,3 +52,18 @@ export enum CashMovementType {
     TRANSFER_BETWEEN_ACCOUNTS = 'TRANSFER_BETWEEN_ACCOUNTS',
     ADJUSTMENT = 'ADJUSTMENT',
 }
+
+export enum ContainerMovementType {
+    CUSTOMER_RETURN = 'CUSTOMER_RETURN', // cliente trae un vacío (+)
+    SUPPLIER_RETURN = 'SUPPLIER_RETURN', // devuelves vacíos al proveedor (-)
+    BREAKAGE = 'BREAKAGE',               // se rompió un envase (-)
+    ADJUSTMENT = 'ADJUSTMENT',           // corrección de conteo (+/-)
+}
+
+export enum StockAdjustmentReason {
+    BREAKAGE = 'BREAKAGE',                 // rotura
+    EXPIRED = 'EXPIRED',                   // vencido
+    OWN_CONSUMPTION = 'OWN_CONSUMPTION',   // consumo propio / familia
+    LOSS = 'LOSS',                         // pérdida o robo
+    COUNT_CORRECTION = 'COUNT_CORRECTION', // el conteo físico dio menos
+}
