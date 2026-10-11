@@ -139,3 +139,4 @@ export const PresentationUpdateSchema = z
 export type ProductCreate = z.output<typeof ProductCreateSchema>;
 export type ProductUpdate = z.output<typeof ProductUpdateSchema>;
 export type PresentationUpdate = z.output<typeof PresentationUpdateSchema>;
+export type VariantCreate = z.output<typeof VariantSchema>;

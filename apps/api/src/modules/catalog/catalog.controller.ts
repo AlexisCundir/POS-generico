@@ -2,10 +2,10 @@ import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestj
 import { CatalogService } from './catalog.service.js';
 import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe.js';
 import {
-    PresentationUpdateSchema, ProductCreateSchema, ProductUpdateSchema,
+    PresentationUpdateSchema, ProductCreateSchema, ProductUpdateSchema, VariantSchema,
 } from './schemas/product.schemas.js';
 import type {
-    PresentationUpdate, ProductCreate, ProductUpdate,
+    PresentationUpdate, ProductCreate, ProductUpdate, VariantCreate,
 } from './schemas/product.schemas.js';
 
 @Controller('catalog')
@@ -35,6 +35,15 @@ export class CatalogController {
         return this.catalog.update(id, dto);
     }
 
+    // endpoint para agregar un sabor nuevo a un producto existente
+    @Post('products/:id/variants')
+    addVariant(
+        @Param('id', ParseUUIDPipe) id: string,
+        @Body(new ZodValidationPipe(VariantSchema)) dto: VariantCreate,
+    ) {
+        return this.catalog.addVariant(id, dto);
+    }
+
     @Patch('presentations/:id')
     updatePresentation(
         @Param('id', ParseUUIDPipe) id: string,
@@ -42,4 +51,5 @@ export class CatalogController {
     ) {
         return this.catalog.updatePresentation(id, dto);
     }
+
 }

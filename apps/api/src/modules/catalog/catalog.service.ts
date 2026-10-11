@@ -5,8 +5,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity.js';
 import { Presentation } from './entities/presentation.entity.js';
+import { ProductVariant } from './entities/product-variant.entity.js';
 import type {
-    PresentationUpdate, ProductCreate, ProductUpdate,
+    PresentationUpdate, ProductCreate, ProductUpdate, VariantCreate,
 } from './schemas/product.schemas.js';
 
 @Injectable()
@@ -14,6 +15,7 @@ export class CatalogService {
     constructor(
         @InjectRepository(Product) private readonly products: Repository<Product>,
         @InjectRepository(Presentation) private readonly presentations: Repository<Presentation>,
+        @InjectRepository(ProductVariant) private readonly variants: Repository<ProductVariant>
     ) { }
 
     async create(dto: ProductCreate): Promise<Product> {
@@ -79,6 +81,38 @@ export class CatalogService {
         }
         Object.assign(presentation, dto);
         return this.presentations.save(presentation);
+    }
+
+    async addVariant(productId: string, dto: VariantCreate): Promise<ProductVariant> {
+        // 1) ¿Existe el producto? (findOne lanza 404 si no, y ya trae sus variantes)
+        const product = await this.findOne(productId);
+
+        // 2) ¿Este producto maneja sabores?
+        if (!product.hasFlavors) {
+            throw new BadRequestException('Este producto no maneja sabores');
+        }
+
+        // 3) ¿El sabor ya existe? (sin importar mayúsculas)
+        const repeated = product.variants.some(
+            (v) => v.flavor.toLowerCase() === dto.flavor.toLowerCase(),
+        );
+        if (repeated) {
+            throw new ConflictException(`El sabor "${dto.flavor}" ya existe en este producto`);
+        }
+
+        // 4) Si mandó SKU, no puede estar usado por otra variante
+        if (dto.sku) {
+            const skuTaken = await this.variants.exists({ where: { sku: dto.sku } });
+            if (skuTaken) throw new ConflictException(`El SKU "${dto.sku}" ya está en uso`);
+        }
+
+        // 5) Crear y guardar
+        const variant = this.variants.create({
+            productId,
+            flavor: dto.flavor,
+            sku: dto.sku ?? null,
+        });
+        return this.variants.save(variant);
     }
 
     /** Evita productos duplicados sin importar mayúsculas (opcionalmente excluye uno, para renombrar) */
