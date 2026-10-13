@@ -55,8 +55,12 @@ export class PurchasingService {
                 }
 
                 const initial = new Decimal(line.packages).mul(presentation.baseUnitsQty);
-                const unitCost = new Decimal(line.packageCost).div(presentation.baseUnitsQty);
-                const lineTotal = new Decimal(line.packages).mul(line.packageCost).toDecimalPlaces(2);
+                const lineTotal = new Decimal(line.lineTotal);
+
+                // Costo por unidad base = total pagado / unidades recibidas (350 / 36 = 9.722222)
+                const unitCost = lineTotal.div(initial);
+                // Costo por paquete: solo informativo, a 2 decimales
+                const packageCost = lineTotal.div(line.packages).toDecimalPlaces(2);
                 total = total.plus(lineTotal);
 
                 lots.push(
@@ -64,7 +68,7 @@ export class PurchasingService {
                         variantId: variant.id,
                         purchasePresentationId: presentation.id,
                         packagesPurchased: line.packages,
-                        packageCost: line.packageCost,
+                        packageCost: packageCost.toNumber(),
                         initialBaseUnits: initial.toNumber(),
                         remainingBaseUnits: initial.toNumber(),
                         unitCost: unitCost.toDecimalPlaces(6).toNumber(),

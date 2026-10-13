@@ -8,7 +8,7 @@ export const PurchaseLineSchema = z.object({
     variantId: z.uuid(),
     presentationId: z.uuid(), // la presentación COMPRABLE: 'Fajo x10', 'Paquete x12'
     packages: z.number().positive().max(100000),
-    packageCost: positiveMoney, // costo de UN paquete (160, 120)
+    lineTotal: positiveMoney, // TOTAL pagado por esta línea (lo que dice el ticket)
 });
 
 export const PurchaseCreateSchema = z.object({
