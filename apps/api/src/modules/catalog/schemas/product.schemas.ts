@@ -1,11 +1,6 @@
 import { z } from 'zod';
 import { ProductCategory } from '../../../common/enums.js';
-
-const money = z
-    .number()
-    .min(0, 'No puede ser negativo')
-    .multipleOf(0.01, 'Máximo 2 decimales');
-const positiveMoney = money.refine((n) => n > 0, 'Debe ser mayor a 0');
+import { money, positiveMoney } from '../../../common/schemas/primitives.js';
 
 const categoryEnum = z.enum(
     Object.values(ProductCategory) as [ProductCategory, ...ProductCategory[]],

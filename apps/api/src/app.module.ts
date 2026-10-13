@@ -5,6 +5,8 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { buildTypeOrmOptions } from './database/typeorm.config.js';
 import { CatalogModule } from './modules/catalog/catalog.module.js';
+import { PurchasingModule } from './modules/purchasing/purchasing.module.js';
+import { InventoryModule } from './modules/inventory/inventory.module.js';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { CatalogModule } from './modules/catalog/catalog.module.js';
         buildTypeOrmOptions(config.getOrThrow<string>('DATABASE_URL')),
     }),
     CatalogModule,
+    PurchasingModule,
+    InventoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
