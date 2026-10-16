@@ -7,6 +7,7 @@ import { buildTypeOrmOptions } from './database/typeorm.config.js';
 import { CatalogModule } from './modules/catalog/catalog.module.js';
 import { PurchasingModule } from './modules/purchasing/purchasing.module.js';
 import { InventoryModule } from './modules/inventory/inventory.module.js';
+import { SalesModule } from './modules/sales/sales.module.js';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { InventoryModule } from './modules/inventory/inventory.module.js';
     CatalogModule,
     PurchasingModule,
     InventoryModule,
+    SalesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
