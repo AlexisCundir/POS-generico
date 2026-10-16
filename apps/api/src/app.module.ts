@@ -8,6 +8,7 @@ import { CatalogModule } from './modules/catalog/catalog.module.js';
 import { PurchasingModule } from './modules/purchasing/purchasing.module.js';
 import { InventoryModule } from './modules/inventory/inventory.module.js';
 import { SalesModule } from './modules/sales/sales.module.js';
+import { DepositsModule } from './modules/deposits/deposits.module.js';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { SalesModule } from './modules/sales/sales.module.js';
     PurchasingModule,
     InventoryModule,
     SalesModule,
+    DepositsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

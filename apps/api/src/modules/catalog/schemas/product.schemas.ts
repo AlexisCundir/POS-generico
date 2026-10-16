@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ProductCategory } from '../../../common/enums.js';
-import { money, positiveMoney } from '../../../common/schemas/primitives.js';
+import { positiveMoney } from '../../../common/schemas/primitives.js';
 
 const categoryEnum = z.enum(
     Object.values(ProductCategory) as [ProductCategory, ...ProductCategory[]],
@@ -14,7 +14,7 @@ export const PresentationSchema = z
         isSellable: z.boolean().default(true),
         isPurchasable: z.boolean().default(false),
         suggestedPrice: positiveMoney.nullable().optional(),
-    })
+    }).strict()
     .superRefine((p, ctx) => {
         if (p.isSellable && !p.suggestedPrice) {
             ctx.addIssue({
@@ -36,7 +36,7 @@ export const PresentationSchema = z
 export const VariantSchema = z.object({
     flavor: z.string().trim().min(1).max(40),
     sku: z.string().trim().min(1).max(40).optional(),
-});
+}).strict();
 
 // ───────────── Crear producto ─────────────
 export const ProductCreateSchema = z
@@ -46,12 +46,10 @@ export const ProductCreateSchema = z
         category: categoryEnum,
         baseUnitName: z.string().trim().min(1).default('unidad'),
         hasFlavors: z.boolean().default(false),
-        isReturnable: z.boolean().default(false),
-        depositPerUnit: money.default(0),
         lowStockThreshold: z.number().min(0).default(0),
         variants: z.array(VariantSchema).default([]),
         presentations: z.array(PresentationSchema).min(1, 'Agrega al menos una presentación'),
-    })
+    }).strict()
     .superRefine((p, ctx) => {
         const bases = p.presentations.filter((x) => x.baseUnitsQty === 1);
         if (bases.length !== 1) {
@@ -91,21 +89,6 @@ export const ProductCreateSchema = z
         if (new Set(flavors).size !== flavors.length) {
             ctx.addIssue({ code: 'custom', path: ['variants'], message: 'Sabores duplicados' });
         }
-
-        if (p.isReturnable && p.depositPerUnit <= 0) {
-            ctx.addIssue({
-                code: 'custom',
-                path: ['depositPerUnit'],
-                message: 'Define el monto de la garantía',
-            });
-        }
-        if (!p.isReturnable && p.depositPerUnit > 0) {
-            ctx.addIssue({
-                code: 'custom',
-                path: ['depositPerUnit'],
-                message: 'Solo los retornables llevan garantía',
-            });
-        }
     });
 
 // ───────────── Editar producto (solo datos básicos) ─────────────
@@ -125,12 +108,33 @@ export const ProductUpdateSchema = z
 export const PresentationUpdateSchema = z
     .object({
         suggestedPrice: positiveMoney,
+        isSellable: z.boolean(),
+        isPurchasable: z.boolean(),
         active: z.boolean(),
     })
     .partial()
     .strict()
     .refine((o) => Object.keys(o).length > 0, 'Envía al menos un campo');
 
+export const PresentationContainersSchema = z
+    .object({
+        containers: z
+            .array(
+                z.object({
+                    containerTypeId: z.uuid(),
+                    quantity: z.number().int().positive().max(1000),
+                }),
+            )
+            .max(5), // [] = esta presentación no lleva envases
+    })
+    .superRefine((o, ctx) => {
+        const ids = o.containers.map((c) => c.containerTypeId);
+        if (new Set(ids).size !== ids.length) {
+            ctx.addIssue({ code: 'custom', path: ['containers'], message: 'Tipo de envase repetido' });
+        }
+    });
+
+export type PresentationContainersInput = z.output<typeof PresentationContainersSchema>;
 export type ProductCreate = z.output<typeof ProductCreateSchema>;
 export type ProductUpdate = z.output<typeof ProductUpdateSchema>;
 export type PresentationUpdate = z.output<typeof PresentationUpdateSchema>;

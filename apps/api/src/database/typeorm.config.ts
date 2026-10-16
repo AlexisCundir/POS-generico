@@ -3,12 +3,15 @@ import { User } from '../modules/users/entities/user.entity.js';
 import { Product } from '../modules/catalog/entities/product.entity.js';
 import { ProductVariant } from '../modules/catalog/entities/product-variant.entity.js';
 import { Presentation } from '../modules/catalog/entities/presentation.entity.js';
+import { PresentationContainer } from '../modules/catalog/entities/presentation-container.entity.js';
 import { Purchase } from '../modules/purchasing/entities/purchase.entity.js';
 import { StockLot } from '../modules/inventory/entities/stock-lot.entity.js';
 import { StockAdjustment } from '../modules/inventory/entities/stock-adjustment.entity.js';
 import { Sale } from '../modules/sales/entities/sale.entity.js';
 import { SaleItem } from '../modules/sales/entities/sale-item.entity.js';
 import { SaleItemLot } from '../modules/sales/entities/sale-item-lot.entity.js';
+import { SaleContainer } from '../modules/sales/entities/sale-container.entity.js';
+import { ContainerType } from '../modules/deposits/entities/container-type.entity.js';
 import { DepositLedger } from '../modules/deposits/entities/deposit-ledger.entity.js';
 import { ContainerMovement } from '../modules/deposits/entities/container-movement.entity.js';
 import { Expense } from '../modules/expenses/entities/expense.entity.js';
@@ -21,12 +24,15 @@ export const entities = [
     Product,
     ProductVariant,
     Presentation,
+    PresentationContainer,
     Purchase,
     StockLot,
     StockAdjustment,
     Sale,
     SaleItem,
     SaleItemLot,
+    SaleContainer,
+    ContainerType,
     DepositLedger,
     ContainerMovement,
     Expense,

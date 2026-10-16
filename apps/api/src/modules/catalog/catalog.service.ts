@@ -2,7 +2,7 @@ import {
     BadRequestException, ConflictException, Injectable, NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { Product } from './entities/product.entity.js';
 import { Presentation } from './entities/presentation.entity.js';
 import { ProductVariant } from './entities/product-variant.entity.js';
@@ -10,9 +10,14 @@ import type {
     PresentationUpdate, ProductCreate, ProductUpdate, VariantCreate,
 } from './schemas/product.schemas.js';
 
+import { ContainerType } from '../deposits/entities/container-type.entity.js';
+import { PresentationContainer } from './entities/presentation-container.entity.js';
+import type { PresentationContainersInput } from './schemas/product.schemas.js';
+
 @Injectable()
 export class CatalogService {
     constructor(
+        private readonly dataSource: DataSource,
         @InjectRepository(Product) private readonly products: Repository<Product>,
         @InjectRepository(Presentation) private readonly presentations: Repository<Presentation>,
         @InjectRepository(ProductVariant) private readonly variants: Repository<ProductVariant>
@@ -30,8 +35,6 @@ export class CatalogService {
             category: dto.category,
             baseUnitName: dto.baseUnitName,
             hasFlavors: dto.hasFlavors,
-            isReturnable: dto.isReturnable,
-            depositPerUnit: dto.depositPerUnit,
             lowStockThreshold: dto.lowStockThreshold,
             variants: variants.map((v) => ({
                 flavor: v.flavor,
@@ -52,7 +55,7 @@ export class CatalogService {
 
     findAll(): Promise<Product[]> {
         return this.products.find({
-            relations: { variants: true, presentations: true },
+            relations: { variants: true, presentations: { containers: { containerType: true } } },
             order: { name: 'ASC' },
         });
     }
@@ -60,7 +63,7 @@ export class CatalogService {
     async findOne(id: string): Promise<Product> {
         const product = await this.products.findOne({
             where: { id },
-            relations: { variants: true, presentations: true },
+            relations: { variants: true, presentations: { containers: { containerType: true } } },
         });
         if (!product) throw new NotFoundException('Producto no encontrado');
         return product;
@@ -76,11 +79,51 @@ export class CatalogService {
     async updatePresentation(id: string, dto: PresentationUpdate): Promise<Presentation> {
         const presentation = await this.presentations.findOne({ where: { id } });
         if (!presentation) throw new NotFoundException('Presentación no encontrada');
-        if (dto.suggestedPrice !== undefined && !presentation.isSellable) {
+
+        Object.assign(presentation, dto);
+
+        if (presentation.isSellable && !presentation.suggestedPrice) {
+            throw new BadRequestException('Una presentación vendible necesita precio sugerido');
+        }
+        if (!presentation.isSellable && !presentation.isPurchasable) {
+            throw new BadRequestException('Debe ser vendible o comprable');
+        }
+        if (!presentation.isSellable && dto.suggestedPrice !== undefined) {
             throw new BadRequestException('Esta presentación no es vendible: no lleva precio sugerido');
         }
-        Object.assign(presentation, dto);
         return this.presentations.save(presentation);
+    }
+
+    /** Reemplaza la lista de envases de una presentación (PUT = se envía la lista completa) */
+    async setPresentationContainers(id: string, dto: PresentationContainersInput) {
+        return this.dataSource.transaction(async (manager) => {
+            const presentation = await manager.findOne(Presentation, { where: { id } });
+            if (!presentation) throw new NotFoundException('Presentación no encontrada');
+
+            for (const c of dto.containers) {
+                const type = await manager.findOne(ContainerType, { where: { id: c.containerTypeId } });
+                if (!type || !type.active) {
+                    throw new BadRequestException('Tipo de envase inexistente o desactivado');
+                }
+            }
+
+            await manager.delete(PresentationContainer, { presentationId: id });
+            if (dto.containers.length > 0) {
+                await manager.save(
+                    dto.containers.map((c) =>
+                        manager.create(PresentationContainer, {
+                            presentationId: id,
+                            containerTypeId: c.containerTypeId,
+                            quantity: c.quantity,
+                        }),
+                    ),
+                );
+            }
+            return manager.findOneOrFail(Presentation, {
+                where: { id },
+                relations: { containers: { containerType: true } },
+            });
+        });
     }
 
     async addVariant(productId: string, dto: VariantCreate): Promise<ProductVariant> {

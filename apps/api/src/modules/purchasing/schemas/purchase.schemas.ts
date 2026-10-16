@@ -9,7 +9,7 @@ export const PurchaseLineSchema = z.object({
     presentationId: z.uuid(), // la presentación COMPRABLE: 'Fajo x10', 'Paquete x12'
     packages: z.number().positive().max(100000),
     lineTotal: positiveMoney, // TOTAL pagado por esta línea (lo que dice el ticket)
-});
+}).strict();
 
 export const PurchaseCreateSchema = z.object({
     supplierName: z.string().trim().min(1).max(80).optional(),
@@ -23,6 +23,6 @@ export const PurchaseCreateSchema = z.object({
     paidFromAccount: cashAccountEnum.default(CashAccount.CASH),
     notes: z.string().trim().min(1).max(300).optional(),
     lines: z.array(PurchaseLineSchema).min(1, 'Agrega al menos una línea').max(50),
-});
+}).strict();
 
 export type PurchaseCreate = z.output<typeof PurchaseCreateSchema>;

@@ -28,12 +28,14 @@ export class Product {
     @Column({ default: false })
     hasFlavors: boolean;
 
-    /** Envase de vidrio retornable (genera garantía si el cliente no trae vacío) */
+    /*
+    // Envase de vidrio retornable (genera garantía si el cliente no trae vacío)
     @Column({ default: false })
     isReturnable: boolean;
 
     @Column({ ...money, default: 0 })
     depositPerUnit: number;
+    /*
 
     /** Alerta de stock bajo, en unidades base */
     @Column({ ...qty, default: 0 })

@@ -1,22 +1,21 @@
-import {
-    Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import type { Relation } from 'typeorm';
 import { ContainerMovementType } from '../../../common/enums.js';
-import { Product } from '../../catalog/entities/product.entity.js';
 import { User } from '../../users/entities/user.entity.js';
+import { ContainerType } from './container-type.entity.js';
 
+/** Stock de envases VACÍOS en tienda = SUM(quantity) por tipo. */
 @Entity('container_movements')
 export class ContainerMovement {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column({ type: 'uuid' })
-    productId: string;
+    containerTypeId: string;
 
-    @ManyToOne(() => Product)
-    @JoinColumn({ name: 'product_id' })
-    product: Relation<Product>;
+    @ManyToOne(() => ContainerType)
+    @JoinColumn({ name: 'container_type_id' })
+    containerType: Relation<ContainerType>;
 
     @Column({ type: 'enum', enum: ContainerMovementType })
     type: ContainerMovementType;

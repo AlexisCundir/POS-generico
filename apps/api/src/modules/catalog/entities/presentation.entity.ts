@@ -1,9 +1,10 @@
 import {
-    Check, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Unique,
+    Check, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique,
 } from 'typeorm';
 import type { Relation } from 'typeorm';
 import { money, qty } from '../../../common/transformers.js';
 import { Product } from './product.entity.js';
+import { PresentationContainer } from './presentation-container.entity.js';
 
 /** Forma de comprar/vender. baseUnitsQty = cuántas unidades base contiene. */
 @Entity('presentations')
@@ -39,4 +40,7 @@ export class Presentation {
 
     @Column({ default: true })
     active: boolean;
+
+    @OneToMany(() => PresentationContainer, (pc) => pc.presentation)
+    containers: Relation<PresentationContainer[]>;
 }

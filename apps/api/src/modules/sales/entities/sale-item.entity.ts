@@ -63,12 +63,14 @@ export class SaleItem {
     @Column({ ...money })
     grossProfit: number;
 
-    /** Envases vacíos que trajo el cliente */
+    /*
+    //  Envases vacíos que trajo el cliente
     @Column({ type: 'int', default: 0 })
     emptiesReturned: number;
 
     @Column({ ...money, default: 0 })
     depositCharged: number;
+    */
 
     @OneToMany(() => SaleItemLot, (c) => c.saleItem, { cascade: true })
     consumptions: Relation<SaleItemLot[]>;

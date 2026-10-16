@@ -1,11 +1,11 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Put } from '@nestjs/common';
 import { CatalogService } from './catalog.service.js';
 import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe.js';
 import {
-    PresentationUpdateSchema, ProductCreateSchema, ProductUpdateSchema, VariantSchema,
+    PresentationUpdateSchema, ProductCreateSchema, ProductUpdateSchema, VariantSchema, PresentationContainersSchema,
 } from './schemas/product.schemas.js';
 import type {
-    PresentationUpdate, ProductCreate, ProductUpdate, VariantCreate,
+    PresentationUpdate, ProductCreate, ProductUpdate, VariantCreate, PresentationContainersInput,
 } from './schemas/product.schemas.js';
 
 @Controller('catalog')
@@ -50,6 +50,14 @@ export class CatalogController {
         @Body(new ZodValidationPipe(PresentationUpdateSchema)) dto: PresentationUpdate,
     ) {
         return this.catalog.updatePresentation(id, dto);
+    }
+
+    @Put('presentations/:id/containers')
+    setContainers(
+        @Param('id', ParseUUIDPipe) id: string,
+        @Body(new ZodValidationPipe(PresentationContainersSchema)) dto: PresentationContainersInput,
+    ) {
+        return this.catalog.setPresentationContainers(id, dto);
     }
 
 }

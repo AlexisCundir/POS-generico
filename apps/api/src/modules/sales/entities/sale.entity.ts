@@ -6,6 +6,7 @@ import { PaymentMethod, SaleStatus } from '../../../common/enums.js';
 import { money } from '../../../common/transformers.js';
 import { User } from '../../users/entities/user.entity.js';
 import { SaleItem } from './sale-item.entity.js';
+import { SaleContainer } from './sale-container.entity.js';
 
 @Entity('sales')
 @Index(['soldAt'])
@@ -41,6 +42,11 @@ export class Sale {
     @Column({ ...money, default: 0 })
     depositTotal: number;
 
+    // debajo de depositTotal:
+    /** Garantía que el sistema sugería. depositTotal es lo que realmente se cobró. */
+    @Column({ ...money, default: 0 })
+    suggestedDeposit: number;
+
     /** Lo que paga el cliente = itemsTotal + depositTotal */
     @Column({ ...money })
     total: number;
@@ -67,4 +73,7 @@ export class Sale {
 
     @OneToMany(() => SaleItem, (i) => i.sale, { cascade: true })
     items: Relation<SaleItem[]>;
+
+    @OneToMany(() => SaleContainer, (c) => c.sale, { cascade: true })
+    containers: Relation<SaleContainer[]>;
 }
