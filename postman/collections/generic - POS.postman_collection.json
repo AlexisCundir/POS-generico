@@ -1,0 +1,1188 @@
+{
+  "info": {
+    "_postman_id": "dc3eccda-8264-4d3b-8124-f880b5e2e6ef",
+    "name": "generic - POS",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "catalog",
+      "item": [
+        {
+          "name": "1) Crear cigarrillos",
+          "id": "a5084201-12d0-4ec6-a4a1-325618b34dca",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Marlboro\",\r\n  \"category\": \"CIGARRILLO\",\r\n  \"baseUnitName\": \"cigarrillo\",\r\n  \"presentations\": [\r\n    { \"name\": \"Fajo x10\", \"baseUnitsQty\": 200, \"isSellable\": false, \"isPurchasable\": true },\r\n    { \"name\": \"Cajetilla\", \"baseUnitsQty\": 20, \"suggestedPrice\": 22 },\r\n    { \"name\": \"Suelto\", \"baseUnitsQty\": 1, \"suggestedPrice\": 1.5 }\r\n  ]\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/catalog/products",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2) Crear cerveza en lata",
+          "id": "c97b3be9-772d-4aa3-ae00-4772dcd7a3a5",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Cerveza Lata\",\r\n  \"category\": \"CERVEZA\",\r\n  \"baseUnitName\": \"lata\",\r\n  \"presentations\": [\r\n    { \"name\": \"Paquete x12\", \"baseUnitsQty\": 12, \"isPurchasable\": true, \"suggestedPrice\": 140 },\r\n    { \"name\": \"Lata\", \"baseUnitsQty\": 1, \"suggestedPrice\": 12 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/catalog/products",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3) Crear producto con sabores",
+          "id": "0b22919a-15a7-4a3a-b4b0-a1409df3c5f3",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Four Loko\",\r\n  \"category\": \"BEBIDA_ENERGIZANTE\",\r\n  \"baseUnitName\": \"lata\",\r\n  \"hasFlavors\": true,\r\n  \"variants\": [{ \"flavor\": \"Sandía\" }, { \"flavor\": \"Uva\" }],\r\n  \"presentations\": [\r\n    { \"name\": \"Lata\", \"baseUnitsQty\": 1, \"isPurchasable\": true, \"suggestedPrice\": 25 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/catalog/products",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4) INVÁLIDO a propósito",
+          "id": "0d0a6809-ba5b-4411-9493-b5f207d906b4",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Prueba mala\",\r\n  \"category\": \"OTRO\",\r\n  \"presentations\": [\r\n    { \"name\": \"A\", \"baseUnitsQty\": 1 },\r\n    { \"name\": \"B\", \"baseUnitsQty\": 1, \"suggestedPrice\": 5 }\r\n  ]\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/catalog/products",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5) Listar",
+          "id": "ee43ee85-a08a-4fff-ba6f-e4d8e376d6ad",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/catalog/products/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "products",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6) Detalle ID",
+          "id": "3533680b-5d9d-494f-8f9a-234b1cb00d53",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/catalog/products/09bd8f07-a432-47ea-b31e-c3c3e5d991a1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "products",
+                "09bd8f07-a432-47ea-b31e-c3c3e5d991a1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "7) Editar datos básicos",
+          "id": "24e59c94-62f7-419c-b8b4-688abeaf120e",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"lowStockThreshold\": 40 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/catalog/products/ac64c64f-26d7-49ca-a69e-941135ef59bc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "products",
+                "ac64c64f-26d7-49ca-a69e-941135ef59bc"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "8) Cambiar precio sugerido",
+          "id": "45f55271-a324-4f7c-b28b-be1557d87a72",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"suggestedPrice\": 2 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/catalog/presentations/8a3832a3-f6ae-4f42-b68a-e052ab4dc11a",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "presentations",
+                "8a3832a3-f6ae-4f42-b68a-e052ab4dc11a"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Endpoint agregar sabor a producto existente",
+          "id": "96ab8e31-88b9-475d-b05a-98db9100d9ee",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"flavor\": \"Dorada\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/catalog/products/ac64c64f-26d7-49ca-a69e-941135ef59bc/variants",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "products",
+                "ac64c64f-26d7-49ca-a69e-941135ef59bc",
+                "variants"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "3091773e-cc51-4b01-8efe-609c3712e458"
+    },
+    {
+      "name": "purchasing",
+      "item": [
+        {
+          "name": "Compra 1 - Marlboro, 1 fajo a 160",
+          "id": "f1731751-aba3-4965-93e9-4ceebf42603b",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"supplierName\": \"Distribuidora Central\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"25285c2f-1397-42cd-8e4f-10ce9788003a\", \"packages\": 1, \"lineTotal\": 160 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/purchasing/purchases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "purchasing",
+                "purchases"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Compra 2: varias líneas - Cerveza Paquetex12 y Fourloko Sandia Lata",
+          "id": "7376fc40-8f3d-46f5-9a27-6441c99e28e0",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"supplierName\": \"Proveedor Bebidas\",\r\n  \"paidFromAccount\": \"BANK\",\r\n  \"lines\": [\r\n    { \"variantId\": \"e42c81df-0476-409b-a144-7cfb5ee3cead\", \"presentationId\": \"5e70eb60-3516-453d-a47d-fa551359201c\", \"packages\": 2, \"lineTotal\": 240 },\r\n    { \"variantId\": \"070ceaa0-103d-41a1-89f2-27b78d021370\", \"presentationId\": \"9b6dfb15-7198-4297-af3d-f4dea22e9dc7\", \"packages\": 12, \"lineTotal\": 216 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/purchasing/purchases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "purchasing",
+                "purchases"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Compra 3: otro lote de Marlboro, 1 fajo a 170 (con costo distinto)",
+          "id": "d4e6be44-deb6-48ad-9f0e-9080e69109d2",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"25285c2f-1397-42cd-8e4f-10ce9788003a\", \"packages\": 1, \"lineTotal\": 170 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/purchasing/purchases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "purchasing",
+                "purchases"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Stock total en el inventario",
+          "id": "29e34802-c3d2-4975-8155-eae20cb37166",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/inventory/stock",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "inventory",
+                "stock"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lotes por variante en orden FIFO (ejemplo Malboro)",
+          "id": "ce36216f-487a-4597-9bdd-08942c9aadeb",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/inventory/lots/43657adb-c4a6-410e-9d85-434bf6b824d5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "inventory",
+                "lots",
+                "43657adb-c4a6-410e-9d85-434bf6b824d5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Compras: pruebas de errores",
+          "id": "2baa28b0-03b4-494b-83f9-74ec07116b66",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "/*\r\nMarlboro con la presentación Cajetilla (no comprable) = 400 “no es comprable”\r\n{\r\n  \"supplierName\": \"Distribuidora Central\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"761ccb74-692f-4841-80d5-39eb76b6b999\", \"packages\": 1, \"lineTotal\": 160 }\r\n  ]\r\n}\r\n\r\nVariante de Marlboro con la presentación Lata de Four Loko = 400 “no pertenece al producto”\r\n{\r\n  \"supplierName\": \"Distribuidora Central\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"9b6dfb15-7198-4297-af3d-f4dea22e9dc7\", \"packages\": 1, \"lineTotal\": 160 }\r\n  ]\r\n}\r\n\r\n\"packages\": 0 = 400 (Zod)\r\n{\r\n  \"supplierName\": \"Distribuidora Central\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"25285c2f-1397-42cd-8e4f-10ce9788003a\", \"packages\": 0, \"lineTotal\": 160 }\r\n  ]\r\n}\r\n\r\n\"lines\": [] = 400 (Zod)\r\n{\r\n  \"supplierName\": \"Distribuidora Central\",\r\n  \"lines\": []\r\n}\r\n\r\n\"purchasedAt\": \"2030-01-01T00:00:00Z\" = 400 “fecha en el futuro”\r\n{\r\n  \"supplierName\": \"Distribuidora Central\",\r\n  \"purchasedAt\": \"2030-01-01T00:00:00Z\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"25285c2f-1397-42cd-8e4f-10ce9788003a\", \"packages\": 1, \"lineTotal\": 160 }\r\n  ]\r\n}\r\n\r\nLínea 1 válida y línea 2 con \"variantId\": \"00000000-0000-4000-8000-000000000000\" = 404 “Línea 2: la variante no existe”, y nada se guarda\r\n{\r\n  \"supplierName\": \"Proveedor Bebidas\",\r\n  \"paidFromAccount\": \"BANK\",\r\n  \"lines\": [\r\n    { \"variantId\": \"e42c81df-0476-409b-a144-7cfb5ee3cead\", \"presentationId\": \"5e70eb60-3516-453d-a47d-fa551359201c\", \"packages\": 2, \"lineTotal\": 120 },\r\n    { \"variantId\": \"00000000-0000-4000-8000-000000000000\", \"presentationId\": \"9b6dfb15-7198-4297-af3d-f4dea22e9dc7\", \"packages\": 12, \"lineTotal\": 18 }\r\n  ]\r\n}\r\n\r\nUn campo paidFromAccount con valor \"TARJETA\" = 400\r\n{\r\n  \"supplierName\": \"Distribuidora Central\",\r\n  \"paidFromAccount\": \"TARJETA\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"25285c2f-1397-42cd-8e4f-10ce9788003a\", \"packages\": 1, \"lineTotal\": 160 }\r\n  ]\r\n}\r\n*/",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/purchasing/purchases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "purchasing",
+                "purchases"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Compras: prueba presicion unitCost con varios decimales",
+          "id": "432a5127-28e7-48dc-a1a9-e165de659337",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n  \"supplierName\": \"Proveedor Bebidas\",\r\n  \"paidFromAccount\": \"BANK\",\r\n  \"lines\": [\r\n    { \"variantId\": \"e42c81df-0476-409b-a144-7cfb5ee3cead\", \"presentationId\": \"5e70eb60-3516-453d-a47d-fa551359201c\", \"packages\": 3, \"lineTotal\": 350 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/purchasing/purchases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "purchasing",
+                "purchases"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "4c9eef8c-350d-4e8c-a57a-e2c25849c38f"
+    },
+    {
+      "name": "sales",
+      "item": [
+        {
+          "name": "Necesitamos un producto con envase",
+          "id": "71175078-a07c-47b1-9aab-1b8bc6fd793b",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Paceña Botella\",\r\n  \"category\": \"CERVEZA\",\r\n  \"baseUnitName\": \"botella\",\r\n  //\"isReturnable\": true,\r\n  //\"depositPerUnit\": 5,\r\n  \"presentations\": [\r\n    { \"name\": \"Caja x12\", \"baseUnitsQty\": 12, \"isSellable\": false, \"isPurchasable\": true },\r\n    { \"name\": \"Botella\", \"baseUnitsQty\": 1, \"suggestedPrice\": 12 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/catalog/products/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "products",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tambien necesitamos su compra",
+          "id": "8b7b24b9-d1b1-4b7a-8763-b9bb30767b9c",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"supplierName\": \"Cervecería\",\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"68c67bf1-0b08-49df-ac1f-b02b8dca1dc1\", \"packages\": 1, \"lineTotal\": 96 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/purchasing/purchases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "purchasing",
+                "purchases"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T1: venta simple",
+          "id": "2b2ea5d7-3f45-4e78-abd5-568a2ed99424",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"11111111-1111-4111-8111-111111111111\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"761ccb74-692f-4841-80d5-39eb76b6b999\", \"quantity\": 1, \"agreedUnitPrice\": 22 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T2: cajetilla con regateo y sueltos en la misma venta",
+          "id": "24b8329d-4d93-4da3-835c-5cba5cb6dce3",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "// Postman genera un uuid con \"{{$guid}}\"; solo la T1 usa uno fijo para probar después la idempotencia.\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"761ccb74-692f-4841-80d5-39eb76b6b999\", \"quantity\": 1, \"agreedUnitPrice\": 21 },\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"8a3832a3-f6ae-4f42-b68a-e052ab4dc11a\", \"quantity\": 3, \"agreedUnitPrice\": 1.5 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T3: venta que cruza dos lotes",
+          "id": "4f315655-caea-4675-8377-82a817df7130",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"761ccb74-692f-4841-80d5-39eb76b6b999\", \"quantity\": 10, \"agreedUnitPrice\": 22 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T4: pago por QR",
+          "id": "434a33b1-0029-4f59-b7f9-1841137ffbea",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"paymentMethod\": \"QR\",\r\n  \"lines\": [\r\n    { \"variantId\": \"e42c81df-0476-409b-a144-7cfb5ee3cead\", \"presentationId\": \"272f2675-1023-467f-b940-5769162c2552\", \"quantity\": 2, \"agreedUnitPrice\": 12 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T5: venta bajo costo (Four Loko cuesta 18 y se vende a 15)",
+          "id": "c2791337-22fc-4349-9f86-d90d5c58d9c7",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"070ceaa0-103d-41a1-89f2-27b78d021370\", \"presentationId\": \"9b6dfb15-7198-4297-af3d-f4dea22e9dc7\", \"quantity\": 1, \"agreedUnitPrice\": 15 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T6: envases retornables (2 botellas, el cliente trae 1 vacío)",
+          "id": "320be131-d07e-4e44-a4b7-d9f08005812b",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"2c2346c9-a8cf-45bf-948c-4434290f0da7\", \"quantity\": 2, \"agreedUnitPrice\": 12, \"emptiesReturned\": 1 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pruebas de error",
+          "id": "790d4996-fc17-403c-bfeb-17d0164d1140",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "/*\r\nRepetir exactamente el body de T1 (mismo clientSaleId)\r\n201 con la misma venta, y el stock no baja otra vez\r\n{\r\n  \"clientSaleId\": \"11111111-1111-4111-8111-111111111111\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"761ccb74-692f-4841-80d5-39eb76b6b999\", \"quantity\": 1, \"agreedUnitPrice\": 22 }\r\n  ]\r\n}\r\n\r\n500 sueltos de Marlboro\t\r\n409 “stock insuficiente”\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"8a3832a3-f6ae-4f42-b68a-e052ab4dc11a\", \"quantity\": 500, \"agreedUnitPrice\": 1.5 }\r\n  ]\r\n}\r\n\r\nUna línea de Marlboro con \"emptiesReturned\": 1\r\n400 (no usa envases retornables)\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"8a3832a3-f6ae-4f42-b68a-e052ab4dc11a\", \"quantity\": 1, \"agreedUnitPrice\": 1.5 , \"emptiesReturned\": 1}\r\n  ]\r\n}\r\n\r\nLa presentación Fajo x10 (no vendible)\t400\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"25285c2f-1397-42cd-8e4f-10ce9788003a\", \"quantity\": 1, \"agreedUnitPrice\": 200}\r\n  ]\r\n}\r\n\r\nVariante de Marlboro con una presentación de otro producto\t400\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"9b6dfb15-7198-4297-af3d-f4dea22e9dc7\", \"quantity\": 1, \"agreedUnitPrice\": 200}\r\n  ]\r\n}\r\n\r\n\"agreedUnitPrice\": 0\t400 (Zod)\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"8a3832a3-f6ae-4f42-b68a-e052ab4dc11a\", \"quantity\": 1, \"agreedUnitPrice\": 0}\r\n  ]\r\n}\r\n\r\n\"clientSaleId\": \"abc\"\t400 (Zod)\r\n{\r\n  \"clientSaleId\": \"abc\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"8a3832a3-f6ae-4f42-b68a-e052ab4dc11a\", \"quantity\": 1, \"agreedUnitPrice\": 10}\r\n  ]\r\n}\r\n\r\nDos líneas: 1 cajetilla de Marlboro y 500 latas de cerveza\t409, y ninguna de las dos líneas descuenta stock\r\n*/\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"761ccb74-692f-4841-80d5-39eb76b6b999\", \"quantity\": 1, \"agreedUnitPrice\": 22 },\r\n    { \"variantId\": \"e42c81df-0476-409b-a144-7cfb5ee3cead\", \"presentationId\": \"272f2675-1023-467f-b940-5769162c2552\", \"quantity\": 500, \"agreedUnitPrice\": 12 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "00eb7de7-cf54-44e6-a25e-08089e80b68d"
+    },
+    {
+      "name": "Correcciones - pruebas",
+      "item": [
+        {
+          "name": "Preparación",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "14bf25ca-0a1e-4e67-b02d-086a56946daf",
+                "exec": [
+                  "//pm.collectionVariables.set(\"botellaId\", pm.response.json().id)\r",
+                  "pm.collectionVariables.set(\"cajonId\", pm.response.json().id)"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "817cd158-ee1b-471d-97f2-0f7bcab5af62",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "//{ \"name\": \"Botella Paceña\", \"depositAmount\": 2 }\r\n{ \"name\": \"Cajón x12\", \"depositAmount\": 26 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/deposits/container-types",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "deposits",
+                "container-types"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Precios de Paceña",
+          "id": "dc966e58-1b59-47c4-b1bf-e5d459fea27b",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "// http://localhost:3000/catalog/presentations/2c2346c9-a8cf-45bf-948c-4434290f0da7\r\n// { \"suggestedPrice\": 15 }\r\n\r\n//http://localhost:3000/catalog/presentations/68c67bf1-0b08-49df-ac1f-b02b8dca1dc1\r\n{ \"isSellable\": true, \"suggestedPrice\": 200 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/catalog/presentations/68c67bf1-0b08-49df-ac1f-b02b8dca1dc1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "presentations",
+                "68c67bf1-0b08-49df-ac1f-b02b8dca1dc1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Envases por presentación",
+          "id": "51defd45-6c75-4721-ac38-5d23e9139e9a",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "/*\r\nhttp://localhost:3000/catalog/presentations/2c2346c9-a8cf-45bf-948c-4434290f0da7/containers\r\n{\r\n    \"containers\": [\r\n        {\r\n            \"containerTypeId\": \"{{botellaId}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}\r\n\r\n/catalog/presentations/68c67bf1-0b08-49df-ac1f-b02b8dca1dc1/containers\r\n*/\r\n{ \"containers\": [\r\n  { \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 12 },\r\n  { \"containerTypeId\": \"{{cajonId}}\", \"quantity\": 1 }\r\n] }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/catalog/presentations/68c67bf1-0b08-49df-ac1f-b02b8dca1dc1/containers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "catalog",
+                "presentations",
+                "68c67bf1-0b08-49df-ac1f-b02b8dca1dc1",
+                "containers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Stock",
+          "id": "23cec43e-350b-4fc8-a0c1-be841d74c8cb",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"68c67bf1-0b08-49df-ac1f-b02b8dca1dc1\", \"packages\": 5, \"lineTotal\": 480 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/purchasing/purchases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "purchasing",
+                "purchases"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S1 Trae 2 vacias, paga 30",
+          "id": "1107e441-1769-4bfc-b9b7-1fee97c983db",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"returnedContainers\": [{ \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 2 }],\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"2c2346c9-a8cf-45bf-948c-4434290f0da7\", \"quantity\": 2, \"agreedUnitPrice\": 15 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S2 No trae nada",
+          "id": "aa934cd5-bce8-44e2-845c-93bab924eab9",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"2c2346c9-a8cf-45bf-948c-4434290f0da7\", \"quantity\": 2, \"agreedUnitPrice\": 15 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S3 Cobra otro monto",
+          "id": "d7c568b4-075d-43db-83b5-175e38e725ca",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"depositCharged\": 6,\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"2c2346c9-a8cf-45bf-948c-4434290f0da7\", \"quantity\": 2, \"agreedUnitPrice\": 15 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S4 Cajon y 12 vacias",
+          "id": "b9ca64a8-f815-4cf6-8094-e5c22221070f",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"returnedContainers\": [\r\n    { \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 12 },\r\n    { \"containerTypeId\": \"{{cajonId}}\", \"quantity\": 1 }\r\n  ],\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"68c67bf1-0b08-49df-ac1f-b02b8dca1dc1\", \"quantity\": 1, \"agreedUnitPrice\": 200 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S5 Sin nada",
+          "id": "da884fa8-e48c-4eb8-9a1d-ea5c28bd1651",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"68c67bf1-0b08-49df-ac1f-b02b8dca1dc1\", \"quantity\": 1, \"agreedUnitPrice\": 200 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S6 Cajon pero solo 8 botellas",
+          "id": "c7911d41-9783-433f-ad1d-6d6ab5310224",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"returnedContainers\": [\r\n    { \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 8 },\r\n    { \"containerTypeId\": \"{{cajonId}}\", \"quantity\": 1 }\r\n  ],\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"68c67bf1-0b08-49df-ac1f-b02b8dca1dc1\", \"quantity\": 1, \"agreedUnitPrice\": 200 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S7 A veces 40",
+          "id": "813bae47-11d9-4073-90a1-aa067b095df1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"depositCharged\": 40,\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"68c67bf1-0b08-49df-ac1f-b02b8dca1dc1\", \"quantity\": 1, \"agreedUnitPrice\": 200 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pruebas de Errores",
+          "id": "c160d8d1-78c8-4035-80ec-c90d65884770",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "/* E1\tS1 con botellas quantity: 3\t\r\n400 “Devuelves 3... solo incluye 2”\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"returnedContainers\": [{ \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 3 }],\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"2c2346c9-a8cf-45bf-948c-4434290f0da7\", \"quantity\": 2, \"agreedUnitPrice\": 15 }\r\n  ]\r\n}\r\n\r\nE2\tS1 devolviendo {{cajonId}} × 1 en vez de botellas\t400\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"returnedContainers\": [{ \"containerTypeId\": \"{{cajonId}}\", \"quantity\": 1 }],\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"2c2346c9-a8cf-45bf-948c-4434290f0da7\", \"quantity\": 2, \"agreedUnitPrice\": 15 }\r\n  ]\r\n}\r\n\r\nE3\tS1 + \"depositCharged\": 10\t\r\n400 “No hay envases pendientes”\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"returnedContainers\": [{ \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 2 }],\r\n  \"depositCharged\": 10,\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"2c2346c9-a8cf-45bf-948c-4434290f0da7\", \"quantity\": 2, \"agreedUnitPrice\": 15 }\r\n  ]\r\n}\r\n\r\nE4\t{{botellaId}} repetido dos veces en returnedContainers\t400 (Zod)\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"returnedContainers\": [\r\n  { \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 2 },\r\n  { \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 2 }\r\n  ],\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"2c2346c9-a8cf-45bf-948c-4434290f0da7\", \"quantity\": 2, \"agreedUnitPrice\": 15 }\r\n  ]\r\n}\r\n\r\nE5\t1 cajetilla de Marlboro (761ccb74-..., variante 43657adb-...) \r\ncon returnedContainers de botella × 1\t400\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"returnedContainers\": [\r\n  { \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 1 }\r\n  ],\r\n  \"lines\": [\r\n    { \"variantId\": \"43657adb-c4a6-410e-9d85-434bf6b824d5\", \"presentationId\": \"761ccb74-692f-4841-80d5-39eb76b6b999\", \"quantity\": 1, \"agreedUnitPrice\": 22 }\r\n  ]\r\n}\r\n\r\nE6\tT6 viejo, con emptiesReturned (solo si aplicaste .strict())\t400 Unrecognized key\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"2c2346c9-a8cf-45bf-948c-4434290f0da7\", \"quantity\": 2, \"agreedUnitPrice\": 12, \"emptiesReturned\": 1 }\r\n  ]\r\n}\r\n*/\r\n{\r\n  \"clientSaleId\": \"{{$guid}}\",\r\n  \"lines\": [\r\n    { \"variantId\": \"bc9f9568-2ee4-4c61-a10c-2d12edf91de9\", \"presentationId\": \"2c2346c9-a8cf-45bf-948c-4434290f0da7\", \"quantity\": 2, \"agreedUnitPrice\": 12, \"emptiesReturned\": 1 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/sales",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "sales"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Devoluciones",
+          "id": "58d088dd-86fa-48ea-a90a-27230635fe3c",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "/* \r\nR1\tel cuerpo anterior\t201: refunded 50, liabilityAfter 58\r\n    botella x12 + cajonx1\r\n{ \"items\": [\r\n  { \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 12 },\r\n  { \"containerTypeId\": \"{{cajonId}}\", \"quantity\": 1 }\r\n] }\r\n\r\nR2\tel mismo + \"refundAmount\": 40\t201: refunded 40, liabilityAfter 18\r\n{ \"items\": [\r\n  { \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 12 },\r\n  { \"containerTypeId\": \"{{cajonId}}\", \"quantity\": 1 }\r\n],\r\n\"refundAmount\": 40 }\r\n\r\nR3\tel mismo + \"refundAmount\": 500\t409 “Solo hay 18.00 Bs retenidas”\r\n*/\r\n{ \"items\": [\r\n  { \"containerTypeId\": \"{{botellaId}}\", \"quantity\": 12 },\r\n  { \"containerTypeId\": \"{{cajonId}}\", \"quantity\": 1 }\r\n],\r\n\"refundAmount\": 500 }\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/deposits/refunds",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "deposits",
+                "refunds"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Despues de R1 y R2",
+          "id": "75236c38-4e3b-40e2-b028-0af7ea6dea2d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:3000/deposits/summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "deposits",
+                "summary"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "1bbb2f68-58e9-478e-8bfe-45eebdedf13d"
+    }
+  ],
+  "variable": [
+    {
+      "id": "2fa8c9ef-8958-4525-bf19-150cb1cc6de1",
+      "key": "botellaId",
+      "value": ""
+    },
+    {
+      "id": "063f53a6-1852-4aa6-a1a0-d65e0a689f17",
+      "key": "cajonId",
+      "value": ""
+    }
+  ]
+}
